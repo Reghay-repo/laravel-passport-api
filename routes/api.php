@@ -21,40 +21,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function(){
+    //store
+    Route::post('movies', [MovieController::class, 'store' ]);
+
+    //delete
+    Route::delete('movies/{movie}', [MovieController::class, 'destroy' ]);
+
+    //update
+    Route::put('movies/{movie}', [MovieController::class, 'update' ]);
+
+    //get authenticated user
     Route::get('user',[PassportAuthController::class, 'auth_user'] );
 });
 
 //index
 Route::get('movies', [MovieController::class, 'index']);
+
 //show
 Route::get('movies/{movie}', [MovieController::class, 'show']);
-
-Route::post('movies/create', [MovieController::class, 'store' ]);
-
-
-Route::delete('movies/{movie}', [MovieController::class, 'destroy' ]);
-
-
-Route::put('movies/{movie}', [MovieController::class, 'update' ]);
 
 
 
 //passport routes 
-//reg
+//register
 Route::post('register', [PassportAuthController::class, 'register']);
-
-//log
+//login
 Route::post('login', [PassportAuthController::class, 'login']);
 
-
-
-//movies routes
-
-// Route::middleware('auth:api')->group(function(){
-// });
-
-
-//get all movies
 
 
 

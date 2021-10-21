@@ -54,7 +54,14 @@ class PassportAuthController extends Controller
     }
 
     public function auth_user(){
-        //returns details
+     if(auth()->user())
+      {
+            //returns details
         return response()->json(['authenticated-user' => auth()->user()], 200);
+    }
+    else {
+        
+        return response()->json(['error' => 'user not authenticated'], 401);
+      }
     }
 }
