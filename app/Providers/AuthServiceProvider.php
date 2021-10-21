@@ -26,6 +26,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+
+        //defining gate for delete only for auth user
+        Gate::define('delete-movie', function(User $user, Movie $movie) {
+            
+            return $user->id === $movie->user_id;
+        });
+
         Passport::routes();
     }
 }

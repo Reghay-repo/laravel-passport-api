@@ -111,12 +111,16 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        if ($movie) {
+        if(! Gate::allows('delete-movie', $movie)) {
+            abort(403);
+        }
+       
            $movie->delete();
-
+           
            return response()->json(['movie' => $movie,'message' => 'movie deleted']);
+           
         } else {
-            return response()->json(['error' => 'error  occured']);
+            return response()->json(['error' => 'unauthorized']);
         }
         
 
