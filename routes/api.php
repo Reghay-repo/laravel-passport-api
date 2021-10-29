@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TvController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PassportAuthController;
 
@@ -23,18 +24,44 @@ use App\Http\Controllers\PassportAuthController;
 
 //movies group routes + get user authenticated
 Route::middleware('auth:api')->group(function(){
-    //store
+    
+    /////////////////
+    // movie Routes //     
+    /////////////////
+
+    //store movie
     Route::post('movies', [MovieController::class, 'store' ]);// good
-
-    //delete
+    
+    //delete movie
     Route::delete('movies/{movie}', [MovieController::class, 'destroy' ]); // good
-
-    //update
+    
+    //update movie
     Route::put('movies/{movie}', [MovieController::class, 'update' ]); //good
-
+    
     //get authenticated user
     Route::get('user',[PassportAuthController::class, 'auth_user'] ); //good
+    
+    
+    ///////////////
+    // Tv Routes //     
+    ///////////////
+    Route::get('tvs',[TvController::class, 'index'] );// good
+    
+    //store tv show
+    Route::post('tvs', [TvController::class, 'store' ]);// good
+    
+    //update tv show
+    Route::put('tvs/{tv}', [TvController::class, 'update' ]); //good
+    
+    //delete tv shoow
+    Route::delete('tvs/{tv}', [TvController::class, 'destroy' ]); // good
+    
 });
+
+
+
+//show tv show selected 
+Route::get('tvs/{tv}', [TvController::class, 'show' ]); //good
 
 //index
 Route::get('movies', [MovieController::class, 'index']); //good
